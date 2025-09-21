@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kawtar El Bhiri - Portfolio</title>
+  <style>
+    :root {
+  --bg: #fdfaf6;
+  --primary: #c9a97a;
+  --dark: #4a3c2d;
+  --light: #fff;
+  --muted: #8b7a6b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  scroll-behavior: smooth;
+  line-height: 1.6;
+}
+
+/* Navbar */
+nav {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  background: var(--light);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+}
+nav ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 15px;
+  gap: 25px;
+}
+nav a {
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--dark);
+  transition: color 0.3s ease;
+}
+nav a:hover {
+  color: var(--primary);
+}
+
+/* Sections */
+.section {
+  padding: 100px 20px 60px;
+  max-width: 1100px;
+  margin: auto;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease-out;
+}
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+
+/* Containers */
+.container {
+  background: var(--light);
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  padding: 30px;
+  margin-top: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+}
+
+/* Home Section */
+#home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--primary) 30%, var(--bg) 100%);
+  color: var(--light);
+  text-align: center;
+}
+#home img {
+  width: 150px; height: 150px;
+  border-radius: 50%;
+  border: 4px solid var(--light);
+  margin-bottom: 20px;
+  transition: transform 0.4s ease;
+}
+#home img:hover {
+  transform: scale(1.05);
+}
+#home h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+#home span {
+  color: #513e1c;
+}
+
+/* Buttons */
+.btn {
+  margin-top: 20px;
+  padding: 12px 25px;
+  background: var(--light);
+  color: var(--primary);
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+.btn:hover {
+  background: var(--dark);
+  color: var(--light);
+  transform: scale(1.05);
+}
+
+/* Lists */
+#skills ul, #experience ul, #education ul {
+  list-style: none;
+  padding: 0;
+}
+#skills li, #experience li, #education li {
+  margin: 10px 0;
+}
+
+/* Projects */
+.project-item {
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 10px;
+  background: #f9f7f4;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.project-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Contact */
+.contact p {
+  margin: 8px 0;
+}
+.contact a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.contact a:hover {
+  color: var(--dark);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: var(--light);
+  color: var(--muted);
+  margin-top: 40px;
+  font-size: 0.9rem;
+}
+/* --- Dark Mode --- */
+body.dark {
+  --bg: #1e1e1e;
+  --primary: #d4b483;
+  --dark: #f5f5f5;
+  --light: #2c2c2c;
+  --muted: #b8b8b8;
+}
+#dark-toggle {
+  position: fixed;
+  top: 15px;
+  right: 25px;
+  cursor: pointer;
+  background: var(--primary);
+  color: var(--light);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  z-index: 1200;
+}
+#dark-toggle:hover {
+  transform: rotate(20deg) scale(1.1);
+}
+
+/* --- Timeline --- */
+.timeline {
+  position: relative;
+  margin: 20px 0;
+  padding-left: 30px;
+  border-left: 3px solid var(--primary);
+}
+.timeline-item {
+  margin-bottom: 30px;
+  position: relative;
+}
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -15px;
+  top: 50%;
+   transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid var(--light);
+}
+.timeline-item h3 {
+  color: var(--primary);
+  margin-bottom: 5px;
+}
+/* --- Dark Mode Fixes --- */
+body.dark .container {
+  background: #2c2c2c; /* fond plus sombre */
+  color: #f5f5f5;      /* texte clair */
+}
+
+body.dark .project-item {
+  background: #333;     /* fond sombre */
+  color: #f5f5f5;       /* texte clair */
+}
+
+body.dark .project-item h3 {
+  color: var(--primary);
+}
+
+body.dark .btn {
+  background: #444;
+  color: var(--primary);
+}
+body.dark .btn:hover {
+  background: var(--primary);
+  color: #fff;
+}
+/* --- Skills --- */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+.skill-card {
+  background: #f9f7f4;
+  padding: 15px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.skill-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.12);
+}
+
+/* --- Dark Mode for Skills --- */
+body.dark .skill-card {
+  background: #2c2c2c;
+  color: #f5f5f5;
+}
+
+
+/* --- Interests / Hobbies --- */
+.interests {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.interest {
+  background: var(--light);
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+.interest:hover {
+  transform: translateY(-5px);
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <button id="dark-toggle">🌙</button>
+
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#interests">Interests</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Home -->
+  <section id="home">
+    <img src="images/profile.jpg" alt="Kawtar El Bhiri">
+    <h1>Hello, I'm <span>Kawtar El Bhiri</span></h1>
+    <p>Master’s Student in Data Science & Intelligent Systems</p>
+    <a href="#contact" class="btn">Contact Me</a>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section">
+    <h2>About Me</h2>
+    <div class="container">
+      <p>
+        I am a Master's student in Data Science and Intelligent Systems at the Faculty of Sciences and Techniques of Fez. 
+        My main interests are <b>artificial intelligence</b>, <b>data analysis</b>, and <b>business intelligence</b>. 
+      </p>
+      <p>
+        I have worked on academic and personal projects involving <b>machine learning</b>, <b>predictive modeling</b>, 
+        and <b>web development</b>. I enjoy transforming raw data into actionable insights, building 
+        dashboards, and creating impactful solutions.
+      </p>
+      <p>
+        My goal is to pursue opportunities where I can apply my technical expertise and contribute to innovative projects.
+      </p>
+    </div>
+  </section>
+
+  <!-- Skills -->
+
+<section id="skills" class="section">
+  <h2>Skills</h2>
+  <div class="container">
+ <h3 style="margin-top:30px;">Technical Skills</h3>
+    <!-- Technical Skills -->
+    <div class="skills-grid">
+      <!-- Data Science & AI -->
+      <div class="skill-card">
+        <h3>🤖 Data Science & AI</h3>
+        <p>Machine Learning, Deep Learning, NLP, Prophet, Scikit-learn, Pandas, Numpy, Matplotlib, Seaborn</p>
+      </div>
+
+      <!-- Big Data -->
+      <div class="skill-card">
+        <h3>🗄️ Big Data & Distributed Systems</h3>
+        <p>Hadoop, Spark, Hive, MapReduce</p>
+      </div>
+
+      <!-- Visualization & BI -->
+      <div class="skill-card">
+        <h3>📊 Visualization & BI</h3>
+        <p>Power BI, Plotly, D3.js</p>
+      </div>
+
+      <!-- Cybersecurity -->
+      <div class="skill-card">
+        <h3>🔐 Cybersecurity & Cryptography</h3>
+        <p>RSA, AES, RC4, Symmetric/Asymmetric Encryption, Security of systems and networks</p>
+      </div>
+
+      <!-- Programming Languages -->
+      <div class="skill-card">
+        <h3>💻 Programming Languages</h3>
+        <p>Python, Java, C/C++, R, JavaScript, PHP, HTML/CSS</p>
+      </div>
+
+      <!-- Frameworks & Libraries -->
+      <div class="skill-card">
+        <h3>⚙️ Frameworks & Libraries</h3>
+        <p>Spring Boot, Angular, React, Dash, Flask</p>
+      </div>
+
+      <!-- Databases -->
+      <div class="skill-card">
+        <h3>🗂️ Databases</h3>
+        <p>SQL (MySQL), NoSQL (MongoDB, Cassandra, Neo4j)</p>
+      </div>
+
+      <!-- Tools -->
+      <div class="skill-card">
+        <h3>🛠️ Tools & Methodologies</h3>
+        <p>Git/GitHub, UML</p>
+      </div>
+    </div>
+
+    <!-- Soft Skills -->
+    <h3 style="margin-top:30px;">Soft Skills</h3>
+    <div class="skills-grid">
+      <div class="skill-card">🧩 Problem-solving</div>
+      <div class="skill-card">🤝 Teamwork & Leadership</div>
+      <div class="skill-card">⚡ Adaptability</div>
+      <div class="skill-card">🎯 Critical Thinking</div>
+    </div>
+
+  </div>
+</section>
+
+
+
+  <!-- Experience -->
+<section id="experience" class="section">
+  <h2>Experience</h2>
+  <div class="container timeline">
+
+    <!-- ONDA -->
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <h3>ONDA – PFA Internship</h3>
+        <p><i>July 2025 – August 2025 | Moroccan Airports Authority</i></p>
+        <p>
+          Final-Year Project focused on developing a predictive dashboard for air traffic analysis
+          to help decision-makers anticipate flows and improve efficiency.
+        </p>
+        <ul>
+          <li>Built interactive dashboards with <b>Python</b>, <b>Dash</b>, and <b>Plotly</b>.</li>
+          <li>Implemented <b>Prophet</b> for air traffic forecasting.</li>
+          <li>Secured dashboards with <b>RSA encryption</b>.</li>
+          <li>Validated results with the IT team against historical data.</li>
+        </ul>
+        <p><b>Technologies:</b> Python, Prophet, Dash, Plotly, RSA</p>
+      </div>
+    </div>
+
+    <!-- CGI -->
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <h3>CGI – Internship</h3>
+        <p><i>April 2024 – July 2024 | IT Consulting & Services</i></p>
+        <p>
+          Worked on the development of an internal ticket management system
+          to improve technical support operations.
+        </p>
+        <ul>
+          <li>Designed and developed a <b>ticket management application</b>.</li>
+          <li>Built REST APIs with <b>Spring Boot</b> and <b>SQL</b>.</li>
+          <li>Integrated authentication & authorization modules.</li>
+          <li>Used <b>Git</b> for version control in Agile workflows.</li>
+        </ul>
+        <p><b>Technologies:</b> Java, Spring Boot, SQL, Git</p>
+      </div>
+    </div>
+
+    <!-- Injaz -->
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <h3>Injaz Al-Maghrib Programme</h3>
+        <p><i>February 2025 – June 2025 | Entrepreneurial Training Program</i></p>
+        <p>
+          Participated in a program emphasizing innovation, teamwork, and leadership
+          through business project design.
+        </p>
+        <ul>
+          <li>Worked in a team to design a business project from idea to prototype.</li>
+          <li>Enhanced communication, leadership, and problem-solving skills.</li>
+          <li>Learned project management and delivery within deadlines.</li>
+        </ul>
+        <p><b>Skills gained:</b> Teamwork, Leadership, Communication, Entrepreneurship</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+  <!-- Projects -->
+  <section id="projects" class="section">
+  <h2>Projects</h2>
+  <div class="container">
+
+    <!-- ChatBot AIMAAK -->
+    <div class="project-item">
+      <h3>ChatBot AIMAAK</h3>
+      <p><i>NLP Project | Call Center Automation</i></p>
+      <p>
+        Developed a chatbot capable of understanding and processing Moroccan dialects to improve customer support in call centers.
+      </p>
+      <ul>
+        <li>Preprocessed text data with tokenization and stemming for dialect-specific expressions.</li>
+        <li>Built intent classification using <b>Scikit-learn</b> and word embeddings.</li>
+        <li>Integrated the model into a simple chat interface for testing.</li>
+      </ul>
+      <p><b>Technologies:</b> Python, NLP, Scikit-learn</p>
+    </div>
+
+    <!-- E-commerce Analysis -->
+    <div class="project-item">
+      <h3>E-commerce Data Analysis</h3>
+      <p><i>Data Analytics & Visualization</i></p>
+      <p>
+        Analyzed customer behavior and sales trends to generate actionable insights for online business optimization.
+      </p>
+      <ul>
+        <li>Cleaned and transformed raw sales data using <b>Pandas</b>.</li>
+        <li>Created sales dashboards with <b>Matplotlib</b> for trend visualization.</li>
+        <li>Identified top-performing products and customer purchase patterns.</li>
+      </ul>
+      <p><b>Technologies:</b> Python, Pandas, Matplotlib</p>
+    </div>
+
+    <!-- Medical Dashboard -->
+    <div class="project-item">
+      <h3>Medical Prediction Dashboard</h3>
+      <p><i>Health Informatics</i></p>
+      <p>
+        Designed a dashboard to predict and visualize disease risks using machine learning models.
+      </p>
+      <ul>
+        <li>Trained ML models for cardiovascular and diabetes risk prediction.</li>
+        <li>Built interactive dashboards with <b>Power BI</b> and <b>Dash</b>.</li>
+        <li>Enabled healthcare professionals to monitor patient risk factors effectively.</li>
+      </ul>
+      <p><b>Technologies:</b> Power BI, Python, Scikit-learn</p>
+    </div>
+
+    <!-- Employee Management -->
+    <div class="project-item">
+      <h3>Employee Management App</h3>
+      <p><i>Full-Stack Web Development</i></p>
+      <p>
+        A web application for managing employees, their profiles, and roles within an organization.
+      </p>
+      <ul>
+        <li>Built RESTful APIs with <b>Spring Boot</b>.</li>
+        <li>Developed frontend using <b>Angular</b> with responsive design.</li>
+        <li>Stored employee records in <b>Cassandra</b> for scalability.</li>
+      </ul>
+      <p><b>Technologies:</b> Spring Boot, Angular, Cassandra</p>
+    </div>
+
+    <!-- Library Management -->
+    <div class="project-item">
+      <h3>Library Resource Management</h3>
+      <p><i>Web Application</i></p>
+      <p>
+        A system for managing books, resources, and user borrowings in a university library.
+      </p>
+      <ul>
+        <li>Designed relational database schema in <b>SQL</b>.</li>
+        <li>Implemented backend with <b>Spring Boot</b> and REST APIs.</li>
+        <li>Created frontend using <b>React</b> for a modern UI.</li>
+      </ul>
+      <p><b>Technologies:</b> Spring Boot, React, SQL</p>
+    </div>
+
+    <!-- Plant Disease Classification -->
+    <div class="project-item">
+      <h3>Plant Disease Classification</h3>
+      <p><i>Computer Vision & Deep Learning</i></p>
+      <p>
+        Image classification project aimed at detecting plant diseases for smart agriculture.
+      </p>
+      <ul>
+        <li>Built and trained a Convolutional Neural Network (CNN) with <b>TensorFlow</b>.</li>
+        <li>Processed large dataset of leaf images for training and testing.</li>
+        <li>Achieved high accuracy in detecting common plant diseases.</li>
+      </ul>
+      <p><b>Technologies:</b> Python, TensorFlow, CNN</p>
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- Education -->
+  <section id="education" class="section">
+  <h2>Education</h2>
+  <div class="container timeline">
+
+  <div class="timeline-item">
+    <h3>Master's in Data Science & Intelligent Systems</h3>
+    <p><i>FST Fez (2024 – Present)</i></p>
+    <a href="https://fst-usmba.ac.ma/framework/uploads/2021/12/MST-SDSI.pdf" target="_blank" class="btn">See the formation</a>
+  </div>
+
+  <div class="timeline-item">
+    <h3>Bachelor in Computer Engineering</h3>
+    <p><i>FST Fez (2023 – 2024)</i></p>
+    <a href="https://fst-usmba.ac.ma/framework/uploads/2021/12/LST-G-Info.pdf" target="_blank" class="btn">See the formation</a>
+  </div>
+
+  <div class="timeline-item">
+    <h3>DEUST in MIP</h3>
+    <p><i>FST Fez (2021 – 2023)</i></p>
+    <a href="https://fst-usmba.ac.ma/framework/uploads/2021/12/TC-MIP.pdf" target="_blank" class="btn">See the formation</a>
+  </div>
+
+</div>
+
+</section>
+<section id="interests" class="section">
+  <h2>Interests</h2>
+  <div class="container interests">
+    <div class="interest">📊 Data Analytics Challenges</div>
+    <div class="interest">💻 Competitive Programming</div>
+    <div class="interest">📚 Reading </div>
+    <div class="interest">✈️ Traveling & Cultures</div>
+    <div class="interest">🎶 Music & Creativity</div>
+  </div>
+</section>
+
+
+  <!-- Contact -->
+  <section id="contact" class="section contact">
+    <h2>Contact</h2>
+    <div class="container">
+      <p> <a href="mailto:elbhirikawtar@gmail.com">Mail me</a></p>
+      <p> <a href="https://github.com/kawtela" target="_blank">Github profile</a></p>
+      <p> <a href="https://www.linkedin.com/in/kawtar-el-bhiri-96a0252a9/" target="_blank">Linkedin profile</a></p>
+      <p>Phone: +212 767 849 410</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 - Kawtar El Bhiri - All rights reserved
+  </footer>
+<script>
+  // Dark mode toggle
+  const toggleBtn = document.getElementById("dark-toggle");
+  toggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    toggleBtn.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+  });
+
+  // Scroll reveal animation
+  const sections = document.querySelectorAll('.section');
+  const revealOnScroll = () => {
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 100) {
+        section.classList.add('visible');
+      }
+    });
+  };
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll();
+</script>
+
+</body>
+</html>
